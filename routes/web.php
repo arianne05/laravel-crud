@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,8 @@ use Illuminate\Http\Request;
 */
 
 /*
+AVAILABLE ROUTE TYPE IN LARAVEL
 
-Available Routes in Laravel
 Route::get();
 Route::post();
 Route::put(); //edit all data
@@ -68,3 +69,10 @@ Route::get('/request-download', function(){ //ise response to download file from
 Route::get('/', function () { //this function is default page
     return 'Default';
 });
+
+#include route for the new controller class created
+#           linkName  className              functionName
+Route::get('/newControl', [UserController::class, 'index']);
+
+
+Route::get('/newControl/{id}', [UserController::class, 'passParameter']);
