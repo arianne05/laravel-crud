@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -64,11 +65,12 @@ Route::get('/request-download', function(){ //ise response to download file from
     return response()->download($path, $name, $header);
 });
 
-*/
 
 Route::get('/', function () { //this function is default page
     return 'Default';
 });
+
+*/
 
 /*
 WAYS TO CONNECT ROUTE AND CONTROLLER
@@ -84,3 +86,7 @@ Route::get('/newControl/{id}', [UserController::class, 'passParameter'])
         //if there is no logged in an error will displayed, you can remove this yet if there is no login function yet
         //->middleware('auth')
         ;
+
+/* ROUTES FOR STUDENT DATABASE */
+Route::get('/', [StudentController::class, 'index']); //default
+Route::get('/students', [StudentController::class, 'index']);
