@@ -70,9 +70,17 @@ Route::get('/', function () { //this function is default page
     return 'Default';
 });
 
+/*
+WAYS TO CONNECT ROUTE AND CONTROLLER
+*/
+
 #include route for the new controller class created
 #           linkName  className              functionName
 Route::get('/newControl', [UserController::class, 'index']);
 
 
-Route::get('/newControl/{id}', [UserController::class, 'passParameter']);
+Route::get('/newControl/{id}', [UserController::class, 'passParameter'])
+        //middleware help prevent access from unauthorize user trying to access the system
+        //if there is no logged in an error will displayed, you can remove this yet if there is no login function yet
+        //->middleware('auth')
+        ;
