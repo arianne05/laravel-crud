@@ -1,14 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>Student List</title>
-</head>
-<body>
-    <h1 class="text-3xl font-bold underline">
+{{-- @include('partials.header', ['title'=>'Header']) <!--NOTE: Calling a partial and you can passed an argument in an array like this--> --}}
+@include('partials.header')
+    <header class="max-w-1g max-auto">
+        <a href="#">
+            <h1 class="text-4xl font-bold text-white text-center">Student List</h1>
+        </a>
+    </header>    
+
+    <section class="mt-10">
+        <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">First Name</th>
+                        <th scope="col" class="py-3 px-6">Last Name</th>
+                        <th scope="col" class="py-3 px-6">Email</th>
+                        <th scope="col" class="py-3 px-6">Age</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($students as $student)  
+                        <tr class="bg-gray-800 border-b text-white">
+                            <td class="py-4 px-6">{{$student->first_name}}</td>
+                            <td class="py-4 px-6">{{$student->last_name}}</td>
+                            <td class="py-4 px-6">{{$student->email}}</td>
+                            <td class="py-4 px-6">{{$student->age}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+@include('partials.footer') <!--Calling a partial-->
+
+
+{{-- SAMPLE TEST ON HOW TO ACCESS DATA FROM DATABASE
+<h1 class="text-3xl font-bold underline">
         Hello world!
     </h1>
     
@@ -22,5 +50,6 @@
             <li>{{ $student->first_name.' '.$student->last_name}} | Age: {{ $student->age }}</li>
         @endforeach
     </ul>
-</body>
-</html>
+
+
+ --}}
