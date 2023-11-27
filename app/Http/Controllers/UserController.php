@@ -44,4 +44,8 @@ class UserController extends Controller
             ->with('email', 'arianne@email.com');
 
     }
+
+    public function create(){
+        return view('user.create');
+    }
 }
