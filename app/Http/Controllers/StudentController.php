@@ -22,14 +22,21 @@ class StudentController extends Controller
             $student_data=Students::where('id', 101)->firstOrFail()->get(); //firstOrFail if id is not existed throw/display error else display if existed
             $student_data=Students::findOrFail($id)->get(); //findOrFail if there is a parameter passed and not existed it shows error instead if existed showt the result
         */
-        $student_data=Students::where('age', '>', 19)->limit(5)->get();
-
-        // GROUP BY AND COUNT
+       
+        /* GROUP BY AND COUNT
         $count_data = DB::table('students')
                 ->select(DB::raw('count(*) as gender_count, gender'))
                 ->groupBy('gender')
                 ->get();
+        */
 
-        return view('students.index', ['students'=> $student_data], ['counts'=> $count_data]); //access views folder and file of index.blade.php
+
+         /* Sample 01: To display data in the index with group by
+            $student_data=Students::where('age', '>', 19)->limit(5)->get();
+            return view('students.index', ['students'=> $student_data], ['counts'=> $count_data]); //access views folder and file of index.blade.php
+        */
+
+        // Sample 02: call students.index since the query is integrated in AppServiceProvider.php
+        return view('students.index');
     }
 }
