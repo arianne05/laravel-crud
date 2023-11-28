@@ -74,7 +74,7 @@ Route::get('/', function () { //this function is default page
 
 /*
 WAYS TO CONNECT ROUTE AND CONTROLLER
-*/
+
 
 #include route for the new controller class created
 #           linkName  className              functionName
@@ -86,7 +86,20 @@ Route::get('/newControl/{id}', [UserController::class, 'passParameter'])
         //if there is no logged in an error will displayed, you can remove this yet if there is no login function yet
         //->middleware('auth')
         ;
+*/
+
+/*
+COMMON PRACTICE IN ROUTE NAMING
+1. index - show all data by default
+2. show - show single data
+3. create - show a form to new user
+4. store - save data
+5. edit - show form for edit
+6. update - update process of data
+7. destroy - deletes a data
+*/
 
 /* ROUTES FOR STUDENT DATABASE */
 Route::get('/', [StudentController::class, 'index']); //default
-Route::get('/students', [StudentController::class, 'index']);
+Route::get('/login', [UserController::class, 'login']); // navigate to login function in UserController
+Route::get('/register', [UserController::class, 'register']); // navigate to register function in UserController
