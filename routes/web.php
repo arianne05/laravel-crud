@@ -101,4 +101,5 @@ COMMON PRACTICE IN ROUTE NAMING
 
 /* ROUTES FOR STUDENT DATABASE */
 Route::get('/', [StudentController::class, 'index']); //default
-Route::get('/login', [UserController::class, 'login']); // show forms
+Route::get('/login', [UserController::class, 'login']); // navigate to login function in UserController
+Route::get('/register', [UserController::class, 'register']); // navigate to register function in UserController

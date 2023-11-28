@@ -56,4 +56,9 @@ class UserController extends Controller
             return abort(404);
         }
     }
+
+    //Register function
+    public function register(){
+        return view('user.register');
+    }
 }
