@@ -93,6 +93,8 @@ class UserController extends Controller
         $request->session()->regenerate();
         return redirect('/')->with('message', 'Welcome');
        }
+
+       return back()->withErrors(['email' => 'Login Failed'])->onlyInput('email'); //if email is not existed nor password incorrect
     }
 
     //Logout Function
