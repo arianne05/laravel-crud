@@ -100,8 +100,8 @@ COMMON PRACTICE IN ROUTE NAMING
 */
 
 /* ROUTES FOR STUDENT DATABASE */
-Route::get('/', [StudentController::class, 'index']); //default
-Route::get('/login', [UserController::class, 'login']); // navigate to login function in UserController
+Route::get('/', [StudentController::class, 'index'])->middleware('auth'); //default | added middleware to prevent access from url this is connected with ->name('login') in the login route
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest'); // navigate to login function in UserController
 Route::post('/logout', [UserController::class, 'logout']); // post method is used in the form
 Route::get('/register', [UserController::class, 'register']); // navigate to view register webpage function in UserController
 
