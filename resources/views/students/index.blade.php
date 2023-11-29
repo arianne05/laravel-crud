@@ -10,7 +10,6 @@
     
     {{-- Components --}}
     <x-nav />
-    <x-messages /> {{--flash session--}}
     
     <header class="max-w-1g max-auto mt-5">
         <a href="#">
