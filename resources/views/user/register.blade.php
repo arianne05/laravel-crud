@@ -14,7 +14,7 @@
 
         <section class="mt-10">
 
-            <form action="/store" method="POST" class="flex flex-col">
+            <form action="/process_signup" method="POST" class="flex flex-col">
                 <!--required to have for security purpose-->
                 @csrf
                 <div class="mb-6 pt-3 rounded bg-gray-200">

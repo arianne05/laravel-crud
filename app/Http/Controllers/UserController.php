@@ -69,7 +69,7 @@ class UserController extends Controller
     }
 
     //Process Signup/Register
-    public function store(Request $request){ //When fetching data request is required as a parameter
+    public function process_signup(Request $request){ //When fetching data request is required as a parameter
        $validated = $request->validate([
             "name" => ['required', 'min:4'],
             "email" => ['required', 'email', Rule::unique('users', 'email')],
@@ -81,6 +81,19 @@ class UserController extends Controller
        $user = User::create($validated); //insert validated name, email, pass in the database
        //return $user;
        auth()->login($user);
+    }
+
+    //Process Signin
+    public function process_signin(Request $request){
+        $validated = $request->validate([
+            "email" => ['required', 'email'],
+            "password" => 'required'
+       ]); //set rule in validation
+
+       if(auth()->attempt($validated)){
+        $request->session()->regenerate();
+        return redirect('/')->with('message', 'Welcome');
+       }
     }
 
     //Logout Function
