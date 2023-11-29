@@ -1,6 +1,6 @@
 @include('partials.header')
     
-    <header class="max-w-1g max-auto">
+    <header class="max-w-1g max-auto mt-10">
         <a href="#">
             <h1 class="text-4xl font-bold text-white text-center">Admin Login</h1>
         </a>

@@ -2,7 +2,8 @@
     <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="/">
             <span class="self-center text-xl font-semibold whitespace-nowrap">
-                {{$data['title']}}
+                {{-- {{$data['title']}} --}} <!--this is how you call a data with argument passed on a component-->
+                Student System
             </span>
         </a>
 

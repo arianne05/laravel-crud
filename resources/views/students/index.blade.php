@@ -3,9 +3,13 @@
 
     {{-- Navbar --}}
     {{-- components with passing of arguments --}}
-    <?php $array=array('title' => 'Student System Online');?>
+    {{--  
+    <?php //$array=array('title' => 'Student System Online');?>
     <x-nav :data="$array" /> <!--use of components-->
+    --}}
 
+    <x-nav>
+    
     <header class="max-w-1g max-auto mt-5">
         <a href="#">
             <h1 class="text-4xl font-bold text-white text-center">Student List</h1>
