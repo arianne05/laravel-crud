@@ -7,8 +7,10 @@
     <?php //$array=array('title' => 'Student System Online');?>
     <x-nav :data="$array" /> <!--use of components-->
     --}}
-
+    
+    {{-- Components --}}
     <x-nav />
+    <x-messages /> {{--flash session--}}
     
     <header class="max-w-1g max-auto mt-5">
         <a href="#">
@@ -17,6 +19,7 @@
     </header>    
 
     <section class="mt-10">
+        <x-messages />
         <div class="overflow-x-auto relative">
             <table class="w-96 mx-auto text-sm text-left text-gray-500">
                 <thead class="text-xs text gray-700 uppercase bg-gray-50">
