@@ -11,3 +11,6 @@
     {{-- <title>{{$title}}</title><!--Access the passed argument from index if exister if not error will occur--> --}}
 </head>
 <body class="bg-gray-600 min-h-screen pt-12 pb-6 px-2">
+
+    <x-nav/>
+    <x-messages /> {{--flash session--}}
