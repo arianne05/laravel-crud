@@ -102,4 +102,8 @@ COMMON PRACTICE IN ROUTE NAMING
 /* ROUTES FOR STUDENT DATABASE */
 Route::get('/', [StudentController::class, 'index']); //default
 Route::get('/login', [UserController::class, 'login']); // navigate to login function in UserController
-Route::get('/register', [UserController::class, 'register']); // navigate to register function in UserController
+Route::get('/register', [UserController::class, 'register']); // navigate to view register webpage function in UserController
+
+//PROCESSING
+Route::post('/store', [UserController::class, 'store']); // process signup using post method
+Route::post('/logout', [UserController::class, 'logout']); // post method is used in the form

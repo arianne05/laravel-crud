@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+// use GuzzleHttp\Psr7\Request;
+
+use App\Models\User;
 use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -60,5 +66,29 @@ class UserController extends Controller
     //Register function
     public function register(){
         return view('user.register');
+    }
+
+    //Process Signup/Register
+    public function store(Request $request){ //When fetching data request is required as a parameter
+       $validated = $request->validate([
+            "name" => ['required', 'min:4'],
+            "email" => ['required', 'email', Rule::unique('users', 'email')],
+            "password" => 'required|confirmed|min:6'
+       ]); //set rule in validation
+
+       $validated['password'] = Hash::make($validated['password']); //encrypt or hash the password | you can also use bycrpt($validated['password'])
+
+       $user = User::create($validated); //insert validated name, email, pass in the database
+       //return $user;
+       auth()->login($user);
+    }
+
+    //Logout Function
+    public function logout(Request $request){
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken(); //reset token
+
+        return redirect('/')->with('message', 'Logout Success');
     }
 }

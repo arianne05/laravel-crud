@@ -8,7 +8,7 @@
     <x-nav :data="$array" /> <!--use of components-->
     --}}
 
-    <x-nav>
+    <x-nav />
     
     <header class="max-w-1g max-auto mt-5">
         <a href="#">
