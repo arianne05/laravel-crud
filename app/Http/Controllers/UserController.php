@@ -79,7 +79,6 @@ class UserController extends Controller
        $validated['password'] = Hash::make($validated['password']); //encrypt or hash the password | you can also use bycrpt($validated['password'])
 
        $user = User::create($validated); //insert validated name, email, pass in the database
-       //return $user;
        auth()->login($user);
     }
 
