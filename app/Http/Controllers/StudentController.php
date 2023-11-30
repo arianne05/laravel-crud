@@ -39,7 +39,9 @@ class StudentController extends Controller
         */
 
         // Sample 02: call students.index since the query is integrated in AppServiceProvider.php
-        return view('students.index');
+
+        $data = array("students" => DB::table('students')->orderBy('created_at', 'desc')->paginate(10));
+        return view('students.index', $data);
     }
 
     //ADD NEW STUDENT TEMPLATE
