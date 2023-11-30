@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -40,8 +42,23 @@ class StudentController extends Controller
         return view('students.index');
     }
 
-    //ADD NEW USER TEMPLATE
+    //ADD NEW STUDENT TEMPLATE
     public function newstudent(){
         return view('students.newstudent')->with('title', 'Add User');
+    }
+
+    //PROCESS ADD STUDENT IN THE DB
+    public function process_add(Request $request){
+        $validated = $request->validate([
+            "first_name" => ['required', 'min:4'],
+            "last_name" => ['required', 'min:4'],
+            "gender" => ['required'],
+            "age" => ['required'],
+            "email" => ['required', 'email', Rule::unique('students', 'email')] //check students table if the email column should be unique
+       ]); //set rule in validation
+
+       Students::create($validated); //insert validated data in the database
+
+       return redirect('/')->with('message', 'Student Added Successfully!');
     }
 }
