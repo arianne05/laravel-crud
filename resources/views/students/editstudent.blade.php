@@ -72,7 +72,13 @@
                 </button>
             </form>
 
-            
+            <form action="/viewstudent/{{$student->id}}" method="POST">
+                @method('delete')
+                @csrf
+                <button type="submit" class="w-full mt-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200">
+                    Delete
+                </button>
+            </form>
 
         </section>
     </main>

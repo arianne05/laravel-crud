@@ -114,3 +114,4 @@ Route::get('/newstudent', [StudentController::class, 'newstudent']); // navigate
 Route::post('/newstudent', [StudentController::class, 'process_add']); // navigate to the same add student form
 Route::get('/viewstudent/{id}', [StudentController::class, 'viewstudent']); // navigate to the same add student form
 Route::put('/viewstudent/{student}', [StudentController::class, 'process_update']); // navigate to the same add student form
+Route::delete('/viewstudent/{student}', [StudentController::class, 'process_delete']); // navigate to the same add student form

@@ -83,4 +83,10 @@ class StudentController extends Controller
        $student->update($validated); //query to update
        return back()->with('message', 'Data Successfully Updated');
     }
+
+    //PROCESS DELETE DATA
+    public function process_delete( Students $student){
+        $student->delete();
+        return redirect('/')->with('message','Deleted Successfully');
+    }
 }
