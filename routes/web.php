@@ -104,6 +104,7 @@ Route::get('/', [StudentController::class, 'index'])->middleware('auth'); //defa
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest'); // navigate to login function in UserController
 Route::post('/logout', [UserController::class, 'logout']); // post method is used in the form
 Route::get('/register', [UserController::class, 'register']); // navigate to view register webpage function in UserController
+Route::get('/newstudent', [StudentController::class, 'newstudent']); // navigate to add new user
 
 //PROCESSING
 Route::post('/process_signup', [UserController::class, 'process_signup']); // process signup using post method
