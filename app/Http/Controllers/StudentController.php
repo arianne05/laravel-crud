@@ -63,4 +63,24 @@ class StudentController extends Controller
 
        return redirect('/')->with('message', 'Student Added Successfully!');
     }
+
+    //VIEW STUDENT DATA
+    public function viewstudent($id){
+        $data = Students::findOrFail($id);
+        return view('students.editstudent', ['student'=>$data]);
+    }
+
+    //PROCESS EDIT/UPDATE
+    public function process_update(Request $request, Students $student){
+        $validated = $request->validate([
+            "first_name" => ['required', 'min:4'],
+            "last_name" => ['required', 'min:4'],
+            "gender" => ['required'],
+            "age" => ['required'],
+            "email" => ['required', 'email']
+       ]);
+
+       $student->update($validated); //query to update
+       return back()->with('message', 'Data Successfully Updated');
+    }
 }

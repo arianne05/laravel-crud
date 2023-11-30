@@ -26,6 +26,7 @@
                         <th scope="col" class="py-3 px-6">Last Name</th>
                         <th scope="col" class="py-3 px-6">Email</th>
                         <th scope="col" class="py-3 px-6">Age</th>
+                        <th scope="col" class="py-3 px-6"></th>
                     </tr>
                 </thead>
 
@@ -36,6 +37,7 @@
                             <td class="py-4 px-6">{{$student->last_name}}</td>
                             <td class="py-4 px-6">{{$student->email}}</td>
                             <td class="py-4 px-6">{{$student->age}}</td>
+                            <td class="py-4 px-6"><a href="/viewstudent/{{$student->id}}" class="bg-sky-600 text-white px-4 py-1 rounded">view</a></td>
                         </tr>
                     @endforeach
                 </tbody>

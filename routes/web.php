@@ -112,4 +112,5 @@ Route::post('/process_signin', [UserController::class, 'process_signin']); // pr
 /* STUDENT CONTROLLER ROUTE */
 Route::get('/newstudent', [StudentController::class, 'newstudent']); // navigate to add new user
 Route::post('/newstudent', [StudentController::class, 'process_add']); // navigate to the same add student form
-
+Route::get('/viewstudent/{id}', [StudentController::class, 'viewstudent']); // navigate to the same add student form
+Route::put('/viewstudent/{student}', [StudentController::class, 'process_update']); // navigate to the same add student form
