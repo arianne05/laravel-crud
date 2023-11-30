@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Models\Students;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -99,19 +100,33 @@ COMMON PRACTICE IN ROUTE NAMING
 7. destroy - deletes a data
 */
 
-/* ROUTES FOR STUDENT DATABASE */
-Route::get('/', [StudentController::class, 'index'])->middleware('auth'); //default | added middleware to prevent access from url this is connected with ->name('login') in the login route
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest'); // navigate to login function in UserController
-Route::post('/logout', [UserController::class, 'logout']); // post method is used in the form
-Route::get('/register', [UserController::class, 'register']); // navigate to view register webpage function in UserController
-
-//PROCESSING
-Route::post('/process_signup', [UserController::class, 'process_signup']); // process signup using post method
-Route::post('/process_signin', [UserController::class, 'process_signin']); // process signup using post method
+/* ROUTES FOR USER CONTROLLER */
+// TIPS: To group a controller at once
+Route::controller(StudentController::class)->group(function(){
+    Route::get('/login', 'login')->name('login')->middleware('guest'); // navigate to login function in UserController
+    Route::post('/logout','logout'); // post method is used in the form
+    Route::get('/register','register'); // navigate to view register webpage function in UserController
+    
+    //PROCESSING
+    Route::post('/process_signup', 'process_signup'); // process signup using post method
+    Route::post('/process_signin', 'process_signin'); // process signup using post method
+}); 
 
 /* STUDENT CONTROLLER ROUTE */
+// TIPS: To group a controller at once
+Route::controller(StudentController::class)->group(function(){
+    Route::get('/', 'index')->middleware('auth'); //default | added middleware to prevent access from url this is connected with ->name('login') in the login route
+    Route::get('/newstudent', 'newstudent');
+    Route::post('/newstudent', 'process_add'); 
+    Route::get('/viewstudent/{id}', 'viewstudent');
+    Route::put('/viewstudent/{student}', 'process_update');
+    Route::delete('/viewstudent/{student}', 'process_delete');
+}); 
+
+/* OLD WAY TO CREATE ROUTE WITH SAME CONTROLLER
 Route::get('/newstudent', [StudentController::class, 'newstudent']); // navigate to add new user
 Route::post('/newstudent', [StudentController::class, 'process_add']); // navigate to the same add student form
-Route::get('/viewstudent/{id}', [StudentController::class, 'viewstudent']); // navigate to the same add student form
-Route::put('/viewstudent/{student}', [StudentController::class, 'process_update']); // navigate to the same add student form
-Route::delete('/viewstudent/{student}', [StudentController::class, 'process_delete']); // navigate to the same add student form
+Route::get('/viewstudent/{id}', [StudentController::class, 'viewstudent']);
+Route::put('/viewstudent/{student}', [StudentController::class, 'process_update']); 
+Route::delete('/viewstudent/{student}', [StudentController::class, 'process_delete']); 
+*/
