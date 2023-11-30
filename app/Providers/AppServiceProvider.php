@@ -26,9 +26,11 @@ class AppServiceProvider extends ServiceProvider
         View::share('title', 'Student System');
 
         //Access database in one go
+        /*
         View::composer('students.index', function($view) {
             //var        tblname    modelname
             $view->with('students', Students::all()); //attach query using with //para rekta na may query and you can delete the query created in the controller
         });
+         */
     }
 }

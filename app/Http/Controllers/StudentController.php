@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -37,6 +39,54 @@ class StudentController extends Controller
         */
 
         // Sample 02: call students.index since the query is integrated in AppServiceProvider.php
-        return view('students.index');
+
+        $data = array("students" => DB::table('students')->orderBy('created_at', 'desc')->paginate(10));
+        return view('students.index', $data);
+    }
+
+    //ADD NEW STUDENT TEMPLATE
+    public function newstudent(){
+        return view('students.newstudent')->with('title', 'Add User');
+    }
+
+    //PROCESS ADD STUDENT IN THE DB
+    public function process_add(Request $request){
+        $validated = $request->validate([
+            "first_name" => ['required', 'min:4'],
+            "last_name" => ['required', 'min:4'],
+            "gender" => ['required'],
+            "age" => ['required'],
+            "email" => ['required', 'email', Rule::unique('students', 'email')] //check students table if the email column should be unique
+       ]); //set rule in validation
+
+       Students::create($validated); //insert validated data in the database
+
+       return redirect('/')->with('message', 'Student Added Successfully!');
+    }
+
+    //VIEW STUDENT DATA
+    public function viewstudent($id){
+        $data = Students::findOrFail($id);
+        return view('students.editstudent', ['student'=>$data]);
+    }
+
+    //PROCESS EDIT/UPDATE
+    public function process_update(Request $request, Students $student){
+        $validated = $request->validate([
+            "first_name" => ['required', 'min:4'],
+            "last_name" => ['required', 'min:4'],
+            "gender" => ['required'],
+            "age" => ['required'],
+            "email" => ['required', 'email']
+       ]);
+
+       $student->update($validated); //query to update
+       return back()->with('message', 'Data Successfully Updated');
+    }
+
+    //PROCESS DELETE DATA
+    public function process_delete( Students $student){
+        $student->delete();
+        return redirect('/')->with('message','Deleted Successfully');
     }
 }
