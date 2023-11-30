@@ -39,4 +39,9 @@ class StudentController extends Controller
         // Sample 02: call students.index since the query is integrated in AppServiceProvider.php
         return view('students.index');
     }
+
+    //ADD NEW USER TEMPLATE
+    public function newstudent(){
+        return view('students.newstudent')->with('title', 'Add User');
+    }
 }
