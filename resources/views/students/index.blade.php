@@ -40,6 +40,10 @@
                     @endforeach
                 </tbody>
             </table>
+            {{-- Pagination --}}
+            <div class="pt-6 p-4">
+                {{$students->links()}}
+            </div>
         </div>
     </section>
 
