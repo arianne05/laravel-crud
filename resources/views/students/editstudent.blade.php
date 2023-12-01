@@ -14,6 +14,13 @@
                 {{-- added enctype in the form to accept file data type --}}
                 @method('PUT') {{--override method to used in edit data--}}
                 @csrf
+
+                {{-- Display Image --}}
+                <div class="flex justify-center items-center my-4">
+                    @php $default_profile="https://avatars.dicebear.com/api/initials/".$student->first_name."-".$student->last_name.".svg"@endphp
+                    <img class="w-[200px] h-[200px] rounded-full" src="{{ $student->student_image ? asset("storage/student_profile/".$student->student_image): $default_profile }}" alt="">
+                </div>
+
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2 ml-3">Firstname</label>
                     <input type="text" name="first_name" value="{{$student->first_name}}" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-400 px-3">
