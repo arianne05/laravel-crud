@@ -22,6 +22,7 @@
             <table class="w-96 mx-auto text-sm text-left text-gray-500">
                 <thead class="text-xs text gray-700 uppercase bg-gray-50">
                     <tr>
+                        <th scope="col" class="py-3 px-6"></th>
                         <th scope="col" class="py-3 px-6">First Name</th>
                         <th scope="col" class="py-3 px-6">Last Name</th>
                         <th scope="col" class="py-3 px-6">Email</th>
@@ -33,6 +34,10 @@
                 <tbody>
                     @foreach ($students as $student)  
                         <tr class="bg-gray-800 border-b text-white">
+                            @php $default_profile="https://avatars.dicebear.com/api/initials/".$student->first_name."-".$student->last_name.".svg"@endphp
+                            <td class="">
+                                <img src="{{ $student->student_image ? asset("storage/student_profile/thumbnail/".$student->student_image): $default_profile }}" alt="">
+                            </td>
                             <td class="py-4 px-6">{{$student->first_name}}</td>
                             <td class="py-4 px-6">{{$student->last_name}}</td>
                             <td class="py-4 px-6">{{$student->email}}</td>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
 
 class StudentController extends Controller
 {
@@ -59,6 +60,28 @@ class StudentController extends Controller
             "email" => ['required', 'email', Rule::unique('students', 'email')] //check students table if the email column should be unique
        ]); //set rule in validation
 
+       if($request->hasFile('student_image')){ //Validate for image
+        $request->validate([
+            "student_image" => 'mimes:jpeg,png,bmp,tiff |max:4096' //rules to validate image must be on jpeg,png and 4mb
+        ]);
+        
+        $filenameWithExtension = $request->file("student_image");
+        $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
+        $extension = $request->file("student_image")->getClientOriginalExtension();
+
+        $filenameToStore = $filename.'_'.time().'.'.$extension;
+        $smallThumbnail= $filename.'_'.time().'.'.$extension;
+
+        $request->file('student_image')->storeAs('public/student_profile', $filenameToStore);
+        $request->file("student_image")->storeAs('public/student_profile/thumbnail', $smallThumbnail);
+        
+        $thumbnail = 'storage/student_profile/thumbnail/'.$smallThumbnail;
+        $this->createThumbnail($thumbnail, 150, 93);
+
+        $validated['student_image'] = $filenameToStore; //save to the student_image col in the db
+        }
+
+
        Students::create($validated); //insert validated data in the database
 
        return redirect('/')->with('message', 'Student Added Successfully!');
@@ -80,13 +103,43 @@ class StudentController extends Controller
             "email" => ['required', 'email']
        ]);
 
+       if($request->hasFile('student_image')){ //Validate for image
+            $request->validate([
+                "student_image" => 'mimes:jpeg,png,bmp,tiff |max:4096' //rules to validate image must be on jpeg,png and 4mb
+            ]);
+            
+            $filenameWithExtension = $request->file("student_image");
+            $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
+            $extension = $request->file("student_image")->getClientOriginalExtension();
+
+            $filenameToStore = $filename.'_'.time().'.'.$extension;
+            $smallThumbnail= $filename.'_'.time().'.'.$extension;
+
+            $request->file('student_image')->storeAs('public/student_profile', $filenameToStore);
+            $request->file("student_image")->storeAs('public/student_profile/thumbnail', $smallThumbnail);
+            
+            $thumbnail = 'storage/student_profile/thumbnail/'.$smallThumbnail;
+            $this->createThumbnail($thumbnail, 150, 93);
+
+            $validated['student_image'] = $filenameToStore; //save to the student_image col in the db
+       }
+
        $student->update($validated); //query to update
        return back()->with('message', 'Data Successfully Updated');
     }
 
     //PROCESS DELETE DATA
-    public function process_delete( Students $student){
+    public function process_delete(Students $student){
         $student->delete();
         return redirect('/')->with('message','Deleted Successfully');
+    }
+
+    //UPLOAD FILE/IMG BY GETTING THE NAME PATH
+    public function createThumbnail($path, $width, $height){
+        $img = Image::make($path)->resize($width, $height, function($constraint){
+            $constraint->aspectRatio();
+        });
+        $img->save($path);
+
     }
 }
