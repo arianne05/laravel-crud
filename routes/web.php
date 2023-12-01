@@ -102,7 +102,7 @@ COMMON PRACTICE IN ROUTE NAMING
 
 /* ROUTES FOR USER CONTROLLER */
 // TIPS: To group a controller at once
-Route::controller(StudentController::class)->group(function(){
+Route::controller(UserController::class)->group(function(){
     Route::get('/login', 'login')->name('login')->middleware('guest'); // navigate to login function in UserController
     Route::post('/logout','logout'); // post method is used in the form
     Route::get('/register','register'); // navigate to view register webpage function in UserController
