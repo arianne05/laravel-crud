@@ -10,7 +10,8 @@
         
         <section class="mt-10">
 
-            <form action="/viewstudent/{{$student->id}}" method="POST" class="flex flex-col"> <!--process within the same oage-->
+            <form action="/viewstudent/{{$student->id}}" method="POST" class="flex flex-col" enctype="multipart/form-data"> <!--process within the same oage-->
+                {{-- added enctype in the form to accept file data type --}}
                 @method('PUT') {{--override method to used in edit data--}}
                 @csrf
                 <div class="mb-6 pt-3 rounded bg-gray-200">
@@ -61,6 +62,16 @@
                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2 ml-3">Email</label>
                     <input type="email" name="email" value="{{$student->email}}" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-400 px-3">
                     @error('email')
+                        <p class="text-red-500 text-xs p-2">
+                            {{$message}}
+                        </p>
+                    @enderror   
+                </div>
+
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    <label for="student_image" class="block text-gray-700 text-sm font-bold mb-2 ml-3">Upload Profile</label>
+                    <input type="file" name="student_image" value="{{$student->student_image}}" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-400 px-3">
+                    @error('student_image')
                         <p class="text-red-500 text-xs p-2">
                             {{$message}}
                         </p>
